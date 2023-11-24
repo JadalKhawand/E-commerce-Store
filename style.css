@@ -1,0 +1,8 @@
+.firstsection {
+  height: 700px;
+}
+.left-btn,
+.right-btn {
+  cursor: pointer;
+  user-select: none;
+}

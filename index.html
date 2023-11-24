@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
+  <link href="https://fonts.googleapis.com/css?family=Work+Sans:200,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Corner Store</title>
+</head>
+
+<body>
+  <header class="flex justify-between p-5 px-20 ">
+    <nav>
+      <a href="#">Shop</a> &nbsp;
+      <a href="#">About</a>
+    </nav>
+    <div><i class="fas fa-lock"></i></div>
+    <div>
+      <i class="fas fa-user"></i> &nbsp;
+      <i class="fas fa-shopping-cart"></i>
+    </div>
+  </header>
+  <div class="firstsection relative">
+
+    <div class="left-btn  absolute inset-y-2/4 left-10 text-5xl">&#x2190;</div>
+    <img class="current-image w-full h-full" src="images/0.jpg" alt="image">
+
+    <div class="image-text absolute inset-y-1/2 left-32 text-5xl">
+      <h2>How You Doin!!</h2>
+      <a href="#">view product</a>
+    </div>
+
+
+    <div class="right-btn  absolute inset-y-2/4 right-10 text-5xl">&#x2192;</div>
+
+  </div>
+
+  <article class="w-11/12 mx-auto mt-16">
+    <div class="secondheader flex justify-between ">
+      <a href="#">STORE</a>
+      <div class="icons">
+        <i class="fas fa-wifi"></i> &nbsp;
+        <i class="fas fa-search"></i>
+      </div>
+    </div>
+    <div class="cards">
+
+    </div>
+
+  </article>
+
+
+  <script src="script.js"></script>
+</body>
+
+</html>
