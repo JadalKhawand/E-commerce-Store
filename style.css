@@ -6,3 +6,24 @@
   cursor: pointer;
   user-select: none;
 }
+.space-y-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: 0; /* Set margin-top to 0 to remove it */
+  margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+}
+@media screen and (max-width: 580px) {
+  .cards {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 340px) {
+  header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
