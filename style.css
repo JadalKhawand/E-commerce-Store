@@ -31,3 +31,20 @@
     justify-content: center;
   }
 }
+/* .heart {
+  background-color: white;
+} */
+/* far::before {
+  background-color: white;
+} */
+.border {
+  border: 1px solid red;
+}
+
+.border-1 {
+  border-width: 1px;
+}
+
+.red {
+  color: red;
+}
