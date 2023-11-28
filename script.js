@@ -185,9 +185,15 @@ priceLimitElement.addEventListener("input", filterStoreItems);
 
 //   // Print the sorted array
 //   setTimeout(function () {
-//     console.log(arr);
+//     console.log(arr.reverse());
 //   }, 2000);
 // }
+
+// array.sort() will not work for a 2 digit numbers
+// so we have to add some parameters inside the sort()
+// array.sort(function(a,b){
+//  return a-blur;
+// })
 
 // let array = [1, 2, 3, 4, 10, 6, 7, 8, 9, 5];
 // let evenArray = [];
