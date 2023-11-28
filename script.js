@@ -208,5 +208,6 @@ priceLimitElement.addEventListener("input", filterStoreItems);
 //     oddArray.push(i);
 //   }
 // }
+// arr.filter((num)=> num<3) btred l ar2am le a2al men 3
 // console.log(evenArray);
 // console.log(oddArray);
