@@ -165,3 +165,42 @@ searchInput.addEventListener("input", filterStoreItems);
 // get reference of the price limit input
 let priceLimitElement = document.querySelector("#price-limit");
 priceLimitElement.addEventListener("input", filterStoreItems);
+
+// array thing:
+// function bblSort(arr) {
+//   for (var i = 0; i < arr.length; i++) {
+//     // Last i elements are already in place
+//     for (var j = 0; j < arr.length - i - 1; j++) {
+//       // Checking if the item at present iteration
+//       // is greater than the next iteration
+//       if (arr[j] > arr[j + 1]) {
+//         // If the condition is true
+//         // then swap them
+//         var temp = arr[j];
+//         arr[j] = arr[j + 1];
+//         arr[j + 1] = temp;
+//       }
+//     }
+//   }
+
+//   // Print the sorted array
+//   setTimeout(function () {
+//     console.log(arr);
+//   }, 2000);
+// }
+
+// let array = [1, 2, 3, 4, 10, 6, 7, 8, 9, 5];
+// let evenArray = [];
+// let oddArray = [];
+// console.log(array);
+// sorted = bblSort(array);
+
+// for (let i = 0; i <= array.length; i++) {
+//   if (i % 2 == 0) {
+//     evenArray.push(i);
+//   } else {
+//     oddArray.push(i);
+//   }
+// }
+// console.log(evenArray);
+// console.log(oddArray);
