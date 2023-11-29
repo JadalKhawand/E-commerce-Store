@@ -208,6 +208,38 @@ priceLimitElement.addEventListener("input", filterStoreItems);
 //     oddArray.push(i);
 //   }
 // }
+// let onlyOdd = Array.filter(function(number){
+//   if(number % 2== 0)
+//   {
+//     return false;
+//   }
+//   else{
+//     return true;
+//   }
+// })
 // arr.filter((num)=> num<3) btred l ar2am le a2al men 3
 // console.log(evenArray);
 // console.log(oddArray);
+function sortPriceAsc(arrayOfItems) {
+  let sortedArr = arrayOfItems.sort(function (prod1, prod2) {
+    return prod1.price - prod2.price;
+  });
+
+  return sortedArr;
+}
+
+function sortPriceDesc(arrayOfItems) {
+  let sortedArr = arrayOfItems.sort(function (prod1, prod2) {
+    return prod2.price - prod1.price;
+  });
+
+  return sortedArr;
+}
+document.querySelector(".sort-asc").addEventListener("click", function () {
+  let sortedArr = sortPriceAsc(products);
+  generateCard(sortedArr);
+});
+document.querySelector(".sort-desc").addEventListener("click", function () {
+  let sortedArr = sortPriceDesc(products);
+  generateCard(sortedArr);
+});
