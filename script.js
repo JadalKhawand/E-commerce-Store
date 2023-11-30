@@ -65,106 +65,133 @@ rightBtn.addEventListener("click", moveRight);
 // searchIcon.addEventListener("mouseover", function () {
 //   searchIcon.style.display = "block";
 // });
-const products = [
-  { name: "Shirt", image: "images/coffee.jpeg", price: 99.99 },
-  { name: "T-shirt", image: "images/coffee.jpeg", price: 59.99 },
-  { name: "coat", image: "images/coffee.jpeg", price: 19.99 },
-  { name: "chair", image: "images/coffee.jpeg", price: 9.99 },
-  { name: "pen", image: "images/coffee.jpeg", price: 12.99 },
-  { name: "pencil", image: "images/coffee.jpeg", price: 5.99 },
-  { name: "pants", image: "images/coffee.jpeg", price: 49.99 },
-  { name: "laptop", image: "images/coffee.jpeg", price: 999.99 },
-];
 
-function generateCard(product) {
-  return `
-    <div class="card w-52 shadow-md">
+let products = [
+  { name: "Shirt", img: "images/shirt.jpg", price: 99.99, id: "1" },
+  { name: "T-shirt", img: "images/tshirt.jpg", price: 59.99, id: "2" },
+  { name: "coat", img: "images/coat.jpeg", price: 19.99, id: "3" },
+  { name: "chair", img: "images/chair.jpeg", price: 9.99, id: "4" },
+  { name: "pen", img: "images//pen.png", price: 12.99, id: "5" },
+  { name: "pencil", img: "images/pencil.jpg", price: 5.99, id: "6" },
+  { name: "pants", img: "images/pants.jpg", price: 49.99, id: "7" },
+  { name: "laptop", img: "images/laptop.jpg", price: 999.99, id: "8" },
+];
+let cardsGrid = document.querySelector(".cards-grid");
+function populateProductsGrid(productsParam) {
+  cardsGrid.innerHTML = "";
+  productsParam.forEach(function (product) {
+    let cardHTML = createHTMLProductCard(product);
+    cardsGrid.innerHTML = cardsGrid.innerHTML + cardHTML;
+  });
+}
+populateProductsGrid(products);
+
+function filterProducts(products, maxPrice, searchTerm) {
+  // filter by price
+  let filteredProducts = products.filter(function (product) {
+    if (maxPrice <= 0 || isNaN(maxPrice)) {
+      return true;
+    }
+
+    // product.price
+    if (product.price < maxPrice) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+
+  // filter by search
+  filteredProducts = filteredProducts.filter(function (product) {
+    if (product.name.toLowerCase().includes(searchTerm.toLowerCase())) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+
+  return filteredProducts;
+}
+
+let maxPriceInputElement = document.querySelector("#max-price");
+let searchTermElement = document.querySelector("#search-term");
+
+maxPriceInputElement.addEventListener("input", function () {
+  let filteredProducts = filterProducts(
+    products,
+    maxPriceInputElement.value,
+    searchTermElement.value
+  );
+  populateProductsGrid(filteredProducts);
+});
+
+searchTermElement.addEventListener("input", function () {
+  populateProductsGrid(
+    filterProducts(
+      products,
+      maxPriceInputElement.value,
+      searchTermElement.value
+    )
+  );
+});
+function createHTMLProductCard(product) {
+  let cardHTML = `
+  <div class="card w-52 shadow-md">
       <div class="img-wrapper border h-52 w-52 overflow-hidden">
-        <img class="h-full max-w-none" src="${product.image}" alt="${
-    product.name
-  }" />
+        <img class="h-full max-w-none" src="${product.img}" alt="" />
       </div>
       <div class="card-details p-2">
         <div class="flex justify-between items-center">
           <h3 class="product-name">${product.name}</h3>
-          <i class="fas fa-heart"></i>
+          <i class="fas fa-heart cursor-pointer"></i>
         </div>
-        <div class="price">$${product.price.toFixed(2)}</div>
+        <div class="flex justify-between">
+        <div class="price">$${product.price}</div>
+        <i class="cart fas fa-shopping-cart cursor-pointer" data-product-id="${product.id}"></i>
+
+        </div>
+        </div>
       </div>
-    </div>
+  </div>
   `;
+  return cardHTML;
 }
 
-const cardsContainer = document.querySelector(".cards-grid");
+function sortPriceAsc(arrayOfItems) {
+  let sortedArr = arrayOfItems.sort(function (prod1, prod2) {
+    return prod1.price - prod2.price;
+  });
 
-products.forEach((product) => {
-  const cardHTML = generateCard(product);
-  cardsContainer.innerHTML += cardHTML;
+  return sortedArr;
+}
+
+function sortPriceDesc(arrayOfItems) {
+  let sortedArr = arrayOfItems.sort(function (prod1, prod2) {
+    return prod2.price - prod1.price;
+  });
+
+  return sortedArr;
+}
+
+document.querySelector(".sort-asc").addEventListener("click", function () {
+  let filteredProducts = filterProducts(
+    products,
+    maxPriceInputElement.value,
+    searchTermElement.value
+  );
+  let sortedArr = sortPriceAsc(filteredProducts);
+  populateProductsGrid(sortedArr);
 });
 
-// managing likes:
-const hearts = document.querySelectorAll(".fa-heart");
-function addEventHandler(htmlElement) {
-  htmlElement.addEventListener("click", function () {
-    htmlElement.classList.toggle("red");
-  });
-}
-hearts.forEach(addEventHandler);
-
-// store search hide/show
-// get search element
-let storeSearch = document.querySelector("#store-search");
-// get search icon
-let searchIcon = document.querySelector(".fa-search");
-function showSearch() {
-  storeSearch.classList.remove("hidden");
-}
-searchIcon.addEventListener("click", showSearch);
-
-let closeSearchIcon = document.querySelector("#store-search-close");
-function hideSearch() {
-  storeSearch.classList.add("hidden");
-}
-closeSearchIcon.addEventListener("click", hideSearch);
-
-function filterStoreItems() {
-  let searchValue = searchInput.value;
-  let maxPrice = priceLimitElement.value;
-  if (isNaN(maxPrice)) {
-    maxPrice = 0;
-  }
-
-  // loop over all cards
-  cards.forEach(function (element) {
-    const cardInnerText = element.innerText;
-    const cardInnerTextParts = cardInnerText.split("$");
-
-    const cardPrice = parseFloat(cardInnerTextParts[1]);
-
-    // above is equivalent to const cardPrice = element.innerText.split('$')[1]
-
-    // either add or remove class hidden
-    // if card text content matches search value, remove class hidden
-    // hide the ones that are not matching search
-    // & show the matching ones
-    if (
-      element.innerText.toLowerCase().includes(searchValue.toLowerCase()) &&
-      (isNaN(maxPrice) || cardPrice < maxPrice)
-    ) {
-      console.log("entered block to show card", cardPrice, maxPrice);
-      element.classList.remove("hidden");
-    } else {
-      element.classList.add("hidden");
-    }
-  });
-}
-const cards = document.querySelectorAll(".card");
-// store search filtering
-let searchInput = document.querySelector("#store-search input[type=text]");
-searchInput.addEventListener("input", filterStoreItems);
-// get reference of the price limit input
-let priceLimitElement = document.querySelector("#price-limit");
-priceLimitElement.addEventListener("input", filterStoreItems);
+document.querySelector(".sort-desc").addEventListener("click", function () {
+  let filteredProducts = filterProducts(
+    products,
+    maxPriceInputElement.value,
+    searchTermElement.value
+  );
+  let sortedArr = sortPriceDesc(filteredProducts);
+  populateProductsGrid(sortedArr);
+});
 
 // array thing:
 // function bblSort(arr) {
@@ -220,26 +247,123 @@ priceLimitElement.addEventListener("input", filterStoreItems);
 // arr.filter((num)=> num<3) btred l ar2am le a2al men 3
 // console.log(evenArray);
 // console.log(oddArray);
-function sortPriceAsc(arrayOfItems) {
-  let sortedArr = arrayOfItems.sort(function (prod1, prod2) {
-    return prod1.price - prod2.price;
+const hearts = document.querySelectorAll(".fa-heart");
+function addEventHandler(htmlElement) {
+  htmlElement.addEventListener("click", function () {
+    htmlElement.classList.toggle("red");
   });
+}
+hearts.forEach(addEventHandler);
 
-  return sortedArr;
+// adding to cart
+
+let cartArray = [];
+const cartItem = document.querySelectorAll(".cart");
+
+function addCart(element) {
+  element.addEventListener("click", function () {
+    const productId = element.dataset.productId;
+    const selectedProduct = products.find(
+      (product) => product.id === productId
+    );
+
+    cartArray.push(selectedProduct);
+
+    console.log("Added to cart:", selectedProduct);
+    populateProductsCart(cartArray); // Update the cart display
+    showAddedToCartMessage(selectedProduct.name);
+  });
 }
 
-function sortPriceDesc(arrayOfItems) {
-  let sortedArr = arrayOfItems.sort(function (prod1, prod2) {
-    return prod2.price - prod1.price;
+cartItem.forEach(addCart);
+
+let openCheckout = document.querySelector(".cartmenu");
+let showCartTrigger = document.querySelector(".checkout");
+
+function showCart() {
+  openCheckout.classList.remove("hidden");
+}
+
+showCartTrigger.addEventListener("click", showCart);
+
+let closeCheckout = document.querySelector(".cartmenu .closeCart");
+function hideCart() {
+  openCheckout.classList.add("hidden");
+}
+closeCheckout.addEventListener("click", hideCart);
+
+function createHTMLProductCart(cartItem) {
+  let cardHTML = `
+    <div class="card w-52 shadow-md">
+      <div class="img-wrapper border h-52 w-52 overflow-hidden">
+        <img class="h-full max-w-none" src="${cartItem.img}" alt="" />
+      </div>
+      <div class="card-details p-2">
+        <div class="flex justify-between items-center">
+          <h3 class="product-name">${cartItem.name}</h3>
+
+
+          <i onclick="removeProductFromCart('${cartItem.id}')" class="far fa-times-circle cursor-pointer"></i>
+
+          
+        </div>
+        <div class="flex justify-between">
+          <div class="price">$${cartItem.price}</div>
+          
+        </div>
+      </div>
+    </div>
+  `;
+  return cardHTML;
+}
+
+let cartsGrid = document.querySelector(".cartObjects");
+function populateProductsCart(cartArray) {
+  cartsGrid.innerHTML = "";
+  cartArray.forEach(function (cartItem) {
+    let cardHTML = createHTMLProductCart(cartItem);
+    cartsGrid.innerHTML += cardHTML;
   });
 
-  return sortedArr;
+  // Update the total price
+  const cartTotalElement = document.getElementById("cartTotal");
+  const total = calculateCartTotal(cartArray);
+  cartTotalElement.textContent = total.toFixed(2); // Format the total price
 }
-document.querySelector(".sort-asc").addEventListener("click", function () {
-  let sortedArr = sortPriceAsc(products);
-  generateCard(sortedArr);
-});
-document.querySelector(".sort-desc").addEventListener("click", function () {
-  let sortedArr = sortPriceDesc(products);
-  generateCard(sortedArr);
-});
+
+populateProductsCart(cartArray);
+let targetIndex = products.findIndex((product) => product.id === product);
+
+function removeProductFromCart(productId) {
+  const selectedIndex = cartArray.findIndex(
+    (product) => product.id === productId
+  );
+
+  if (selectedIndex !== -1) {
+    // Remove the product from the cartArray
+    const removedProduct = cartArray.splice(selectedIndex, 1)[0];
+    console.log("Product removed from cart:", removedProduct);
+    populateProductsCart(cartArray); // Update the cart display
+  } else {
+    console.log("Product not found in cart");
+  }
+}
+
+function calculateCartTotal(cartArray) {
+  return cartArray.reduce((total, product) => total + product.price, 0);
+}
+function showAddedToCartMessage(productName) {
+  const addedToCartMessage = document.getElementById("addedToCartMessage");
+  addedToCartMessage.textContent = `${productName} added to cart`;
+  addedToCartMessage.classList.add("show"); // Add a class to show the message
+
+  // Hide the message after a certain period (e.g., 2 seconds)
+  setTimeout(() => {
+    addedToCartMessage.textContent = "";
+    addedToCartMessage.classList.remove("show");
+  }, 2000);
+}
+function removeAllProducts() {
+  cartArray = [];
+  populateProductsCart(cartArray);
+}

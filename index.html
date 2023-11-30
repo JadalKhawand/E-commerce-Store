@@ -11,6 +11,28 @@
   <title>Corner Store</title>
 </head>
 
+
+<div class="cartmenu w-full bg-black px-20 flex pt-4 hidden">
+  <div class="cartheader flex justify-between">
+    <h1 class="text-4xl">Cart</h1>
+    <h2 class="closeCart text-4xl">X</h2>
+  </div>
+  <div class="removeAll flex justify-between mt-5">
+    <div class="total-price">Total Price: $<span id="cartTotal"></span></div>
+    <div bg-black color-white>
+      <button onclick="removeAllProducts()">Empty cart.</button>
+    </div>
+  </div>
+
+
+
+  <div class="cartObjects flex flex-wrap align-center justify-center gap-24">
+
+  </div>
+</div>
+
+
+
 <body>
   <header class="flex justify-between p-5 px-20 ">
     <nav>
@@ -44,19 +66,21 @@
         <div class="store-section-header flex justify-between relative">
           <h2>Store</h2>
           <div class="flex gap-5 items-center">
-            <span class="sort-asc p-2 bg-gray-200">asc &#x2191;</span>
-            <span class="sort-desc p-2 bg-gray-200">desc &#8595;</span>
+
             <i class="fas fa-search"></i>
           </div>
         </div>
         <div id="store-search" class=" flex gap-2 right-10 top-10 justify-end">
-          <label for="price-limit">Price Limit:</label>
-          <input type="number" name="price-limit" id="price-limit" />
-          <label for="text-input">Text:</label>
-          <input class="border-black border-1" type="text" id="text-input" />
-          <p id="store-search-close">X</p>
+          <label for="max-price">Max Price:</label>
+          <input type="number" name="max-price" id="max-price" />
+          <label for="search-term">Search Term:</label>
+          <input type="text" name="search-term" id="search-term" />
+          <span class="sort-asc p-2 bg-gray-200">asc &#x2191;</span>
+          <span class="sort-desc p-2 bg-gray-200">desc &#8595;</span>
         </div>
+
         <div class="cards-grid flex flex-wrap justify-center items-center gap-24 mt-5">
+
           <!-- <div class="card w-52 shadow-md">
             <div class="img-wrapper border h-52 w-52 overflow-hidden">
               <img class="h-full max-w-none" src="images/coffee.jpeg" alt="" />
@@ -154,8 +178,17 @@
             </div>
           </div>
         </div> -->
-        </div>
+
+
+
     </section>
+    </div>
+    <div class="flex justify-end">
+      <div class="checkout bg-black text-white w-24 text-center cursor-pointer">
+        <h2>CHECKOUT</h2>
+      </div>
+    </div>
+    <div class="added-to-cart-message" id="addedToCartMessage"></div>
 
     <div class="lastsection">
 
