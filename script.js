@@ -1,16 +1,16 @@
 let imageInfo = [
   {
-    src: "images/0.jpg",
+    src: "images/firstimage.jpg",
     text: "Image1: Lorem ipsum dolor sit amet",
     link: "https://example.com/link0",
   },
   {
-    src: "images/1.jpeg",
+    src: "images/secondimage.jpg",
     text: "Image2: Lorem ipsum dolor sit amet",
     link: "https://example.com/link1",
   },
   {
-    src: "images/2.jpeg",
+    src: "images/thirdimage.jpeg",
     text: "Image3: Lorem ipsum dolor sit amet",
     link: "https://example.com/link2",
   },
